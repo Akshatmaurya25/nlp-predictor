@@ -1,0 +1,16 @@
+name: Keep services alive
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping-services:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping deployed apps
+        run: |
+          set -e
+          curl --fail --silent --show-error --max-time 30 https://nlp.akshat.fun/
+          curl --fail --silent --show-error --max-time 30 https://nlp-predictor.onrender.com/
